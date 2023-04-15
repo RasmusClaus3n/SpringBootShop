@@ -1,0 +1,40 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/shop}">Video Game Store</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a th:classappend="${activePage == 'shop' ? 'active' : ''}" class="nav-link" aria-current="page" th:href="@{/shop}">Shop</a>
+                </li>
+<!--TODO th:appendclass doesn't work-->
+                <li class="nav-item">
+                    <a th:classappend="${activePage == 'cart' ? 'active' : ''}" class="nav-link" th:href="@{/cart}">
+                        Cart
+                        <span th:unless="${cartSize == 0}" style="color: #3adb90 ;font-weight: bold" th:text="${cartSize} == null ? ' (0)' : '('+ ${cartSize} + ')'"></span>
+                    </a>
+                </li>
+            </ul>
+
+            <form th:action="@{/shop}" method="get">
+                <div class="d-flex">
+                    <div style="margin-right: 10px">
+                        <select name="platform" th:value="${platform}" class="form-select">
+                            <option value="">All</option>
+                            <option value="PS5">PS5</option>
+                            <option value="Switch">Switch</option>
+                            <option value="XboxOne">Xbox One</option>
+                        </select>
+                    </div>
+                    <input class="form-control me-2" input type="text" placeholder="Search by keyword" name="name" th:value="${name}" >
+                    <button class="btn btn-primary" type="submit" value="Filter">Search</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</nav>
+</html>

@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments-head}"></head>
+<head>
+    <link rel="stylesheet" th:href="@{/cart.css}">
+    <title>Cart</title>
+</head>
+<body>
+<!-- Navbar -->
+<div th:replace="~{fragments-navbar}"></div>
+<!-- Modal -->
+<div th:replace="~{fragments-checkout-modal}"></div>
+
+<!-- Cart -->
+<div class="container">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <!-- Cart size-->
+                        <span class="pull-right">(<strong th:text="${cartSize}"></strong>) items</span>
+                        <h5 >Items in your cart</h5>
+                    </div>
+                    <!--Cart Products-->
+                    <div th:each="cartItem : ${cart}" class="ibox-content">
+                        <div class="table-responsive">
+                            <table class="table shoping-cart-table">
+                                <tbody>
+                                <tr>
+                                    <td width="90">
+                                        <div class="cart-product-imitation">
+                                            <!-- Product Image -->
+                                            <img th:src="${cartItem.product.imageUrl}" alt="">
+                                        </div>
+                                    </td>
+                                    <td class="desc">
+                                        <!--Product Name-->
+                                        <h3>
+                                            <a th:text="${cartItem.product.name}" href="#" class="text-navy"></a>
+                                        </h3>
+                                        <!--Product genres-->
+                                        <span th:each="genre : ${cartItem.product.genres}" th:text="${genre}"class="small"></span>
+                                        <dl class="small m-b-none">
+                                            <dt>Description</dt>
+                                            <dd th:text="${cartItem.product.platform} + ' / ' + ${cartItem.product.category}">A description list is perfect for defining terms.</dd>
+                                        </dl>
+                                        <!--Remove from cart-->
+                                        <div class="m-t-sm">
+                                            <form th:action="@{/cart/remove-from-cart}" method="post">
+                                                <input type="hidden" name="productId" th:value="${cartItem.product.id}">
+                                                <button class="btn-danger btn-sm" type="submit"><i class="fa fa-trash"></i> Remove item</button>
+                                            </form>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <!--Product price-->
+                                        <span th:text="'$'+${cartItem.product.price}"></span>
+                                    </td>
+                                    <td width="65">
+                                        <!--Product quantity-->
+                                        <input type="text" class="form-control" th:placeholder="${cartItem.quantity}">
+                                    </td>
+                                    <td>
+                                        <h4 th:text="'$'+${cartItem.product.price * cartItem.quantity}"></h4>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!--Checkout/Continue Shopping-->
+
+                    <div class="ibox-content">
+                        <button th:classappend="${cartSize == 0 ? 'disabled' : ''}" class="btn btn-success pull-right" data-toggle="modal" data-target="#checkoutModal"><i class="fa fa fa-shopping-cart"></i> Checkout</button>
+                        <a th:href="@{/shop}"><button class="btn btn-primary" ><i class="fa fa-arrow-left"></i> Continue shopping</button></a>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!--Cart Summary-->
+
+            <div class="col-md-3">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>Cart Summary</h5>
+                    </div>
+                    <div class="ibox-content">
+                    <span>
+                        Total
+                    </span>
+                        <!--Total sum-->
+                        <h2 th:text="'$' + ${totalSum}" class="font-bold"></h2>
+                        <hr>
+                        <div class="m-t-sm">
+                            <div class="btn-group">
+                                <!--Checkout-->
+                                <a th:classappend="${cartSize == 0 ? 'disabled' : ''}" class="btn btn-success btn-sm"><i class="fa fa-shopping-cart"></i> Checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ibox">
+                    <div class="ibox-content">
+
+                        <p class="font-bold">
+                            Other products you may be interested in
+                        </p>
+                        <hr>
+                        <div>
+                            <a href="#" class="product-name"> Product 1</a>
+                            <div class="small m-t-xs">
+                                Many desktop publishing packages and web page editors now.
+                            </div>
+                            <div class="m-t text-righ">
+
+                                <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
+                            </div>
+                        </div>
+                        <hr>
+                        <div>
+                            <a href="#" class="product-name"> Product 2</a>
+                            <div class="small m-t-xs">
+                                Many desktop publishing packages and web page editors now.
+                            </div>
+                            <div class="m-t text-righ">
+                                <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

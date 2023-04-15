@@ -1,0 +1,14 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<nav class="pagination-nav" aria-label="Page navigation example">
+    <ul class="pagination pagination-lg">
+        <li class="page-item" th:if="${currentPage > 0}">
+            <a class="page-link" th:href="@{/shop(page=${currentPage - 1}, platform=${platform}, name=${name}, sortBy=${sortBy})}">Previous</a>
+        </li>
+        <li class="page-item" th:each="pageNumber : ${#numbers.sequence(0, totalPages - 1)}">
+            <a th:classappend="${pageNumber == currentPage ? 'current-page-highlight' : ''}" class="page-link" th:href="@{/shop(page=${pageNumber}, platform=${platform}, name=${name}, sortBy=${sortBy})}" th:text="${pageNumber + 1}"></a>
+        </li>
+        <li class="page-item" th:if="${currentPage < totalPages - 1}">
+            <a class="page-link" th:href="@{/shop(page=${currentPage + 1}, platform=${platform}, name=${name}, sortBy=${sortBy})}">Next</a>
+        </li>
+    </ul>
+</nav>

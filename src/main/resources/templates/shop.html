@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments-head}"></head>
+<head>
+    <title>Shop</title>
+    <link rel="stylesheet" th:href="@{/shop.css}">
+</head>
+<body>
+<!--Navbar-->
+<div th:replace="~{fragments-navbar}"></div>
+
+<div class="container-fluid">
+    <div class="col-sm-4">
+
+        <!-- Category -->
+        <form th:action="@{/shop}" method="get">
+            <div class="single category">
+                <h3 class="side-title">Category</h3>
+                <ul class="list-unstyled">
+                    <li>
+                        <a th:class="(${platform == '' || platform == null ? 'platform-highlight' : ''})" href="/shop?platform=" title="">All <span th:text="${ps5Count + ps4Count + switchCount + xboxCount}" class="pull-right"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:class="(${platform == 'PS5' ? 'platform-highlight' : ''})" href="/shop?platform=PS5" title="">Playstation 5 <span th:text="${ps5Count}" class="pull-right"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:class="(${platform == 'PS4' ? 'platform-highlight' : ''})" href="/shop?platform=PS4"  title="">Playstation 4 <span th:text="${ps4Count}" class="pull-right"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:class="(${platform == 'Switch' ? 'platform-highlight' : ''})" href="/shop?platform=Switch"  title="">Nintendo Switch <span th:text="${switchCount}" class="pull-right"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:class="(${platform == 'XboxOne' ? 'platform-highlight' : ''})" a href="/shop?platform=XboxOne"  title="">Xbox One <span th:text="${xboxCount}" class="pull-right">0</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <!--Filter products-->
+                <h3 class="side-title filter">Filter</h3>
+                <span class="sort-btn-group">
+                            <input class="form-check-input" type="radio" name="sortBy" value="lowest" id="lowest" />
+                            <label class="form-check-label" for="lowest">Lowest Price</label>
+                            <br />
+                            <input class="form-check-input" type="radio" name="sortBy" value="highest" id="highest" />
+                            <label class="form-check-label" for="highest">Highest Price</label>
+                            <br />
+                            <button class="btn btn-sm btn-dark" type="submit" value="Filter">Filter</button>
+                </span>
+
+            </div>
+        </form>
+    </div>
+
+    <!--Product list-->
+    <div class="shop-items">
+        <div class="row">
+            <div th:each="product : ${allProducts}" class="col-md-3 col-sm-6">
+                <!--Product-->
+                <div class="item">
+                    <!--TODO Product details-->
+                    <img class="img-responsive" th:src="${product.imageUrl}" alt="">
+                    <!--Product details-->
+                    <div class="item-dtls">
+                        <h6 class="text-muted" th:text="${product.platform} + ' / ' + ${product.category}"></h6>
+                        <!--Product name-->
+                        <h5 th:text="${product.name}"><a href="#"></a></h5>
+                        <!--Product price-->
+                        <span th:text="'$' + ${product.price}" class="price lblue"></span>
+                    </div>
+
+                    <!--Add to cart button-->
+                    <form th:action="@{/cart/add-to-cart}" method="post">
+                        <input type="hidden" name="productId" th:value="${product.id}">
+                        <input type="hidden" name="quantity" value="1">
+                        <div class="ecom bg-lblue">
+                            <button class="btn btn-success" type="submit">Add to cart</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--Pagination-->
+    <div th:replace="~{fragments-pagination}"></div>
+</div>
+
+</body>
+
+</html>
