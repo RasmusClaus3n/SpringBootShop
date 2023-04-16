@@ -25,6 +25,7 @@ public class ShopController {
     ProductService productService;
 
     private static final Formatter formatter = new Formatter();
+    private static final int pageSize = 8; // Number of products to display per page
 
     @GetMapping("")
     public String getAllProducts(@RequestParam(defaultValue = "0") int page,
@@ -37,7 +38,6 @@ public class ShopController {
             model.addAttribute("cart", new ArrayList<CartItem>());
         }
 
-        int pageSize = 8; // Number of products to display per page
         Pageable pageable;
 
         // Sort products based on sortBy parameter
@@ -63,14 +63,16 @@ public class ShopController {
         List<Product> allProducts = productsPage.getContent();
         int totalPages = productsPage.getTotalPages();
 
+        // Gets count of how many products by platform. Used for shop sidebar
         long ps4Count = productService.getProductCountByPlatform("ps4");
         long ps5Count = productService.getProductCountByPlatform("ps5");
         long switchCount = productService.getProductCountByPlatform("switch");
         long xboxCount = productService.getProductCountByPlatform("xboxOne");
 
-        // Sets the active page to "shop". Only for highlighting the navbar-link
+        // Sets the active page to "shop" for highlighting the navbar-link
         model.addAttribute("activePage", "shop");
 
+        // Updates model attributes
         model.addAttribute("ps4Count", ps4Count);
         model.addAttribute("ps5Count", ps5Count);
         model.addAttribute("switchCount", switchCount);

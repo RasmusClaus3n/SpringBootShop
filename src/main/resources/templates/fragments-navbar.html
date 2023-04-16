@@ -10,11 +10,10 @@
                 <li class="nav-item">
                     <a th:classappend="${activePage == 'shop' ? 'active' : ''}" class="nav-link" aria-current="page" th:href="@{/shop}">Shop</a>
                 </li>
-<!--TODO th:appendclass doesn't work-->
                 <li class="nav-item">
                     <a th:classappend="${activePage == 'cart' ? 'active' : ''}" class="nav-link" th:href="@{/cart}">
                         Cart
-                        <span th:unless="${cartSize == 0}" style="color: #3adb90 ;font-weight: bold" th:text="${cartSize} == null ? ' (0)' : '('+ ${cartSize} + ')'"></span>
+                        <span th:unless="${cartSize == 0}" style="color: #3adb90 ;font-weight: bold" th:text="${cartSize} == null ? '' : '('+ ${cartSize} + ')'"></span>
                     </a>
                 </li>
             </ul>

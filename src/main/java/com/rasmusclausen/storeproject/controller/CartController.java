@@ -20,6 +20,7 @@ public class CartController {
     @Autowired
     ProductService productService;
 
+    // Used to format totalSum
     private static final Formatter formatter = new Formatter();
 
     @GetMapping("")
@@ -33,7 +34,7 @@ public class CartController {
         if (!model.containsAttribute("cartSize")) {
             model.addAttribute("cartSize", 0);
         }
-        // Sets the active page to "cart". Only for highlighting the navbar-link
+        // Sets the active page to "cart" for highlighting the navbar-link
         model.addAttribute("activePage", "cart");
         return "cart.html";
     }
@@ -65,12 +66,14 @@ public class CartController {
                 cart.add(item);
             };
 
+            // Updates cart in session
             model.addAttribute("cart", cart);
         }
 
         double totalSum = getTotalSum(cart);
         int cartSize = getCartSize(cart);
 
+        // Updates cartSize and totalSum in session
         model.addAttribute("cartSize", cartSize);
         model.addAttribute("totalSum", totalSum);
 
