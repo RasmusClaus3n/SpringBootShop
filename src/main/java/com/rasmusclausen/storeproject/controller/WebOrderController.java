@@ -42,13 +42,15 @@ public class WebOrderController {
 
         // Creates new web order
         WebOrder webOrder = new WebOrder();
-        webOrder.setTotalSum(getTotalSum(cart));
-        webOrder.setCustomer(customer);
 
         // Saves cart items from cart to web order
         for (CartItem cartItem: cart){
             webOrder.addCartItem(cartItem);
         }
+
+        // Sets total sum and customer to web order
+        webOrder.setTotalSum(getTotalSum(cart));
+        webOrder.setCustomer(customer);
 
         // Saves web order to database
         webOrderService.saveWebOrder(webOrder);
@@ -56,16 +58,10 @@ public class WebOrderController {
         // Clears the cart
         cart.clear();
 
-        // Update model attributes
+        // Updates model attributes
         model.addAttribute("cart", cart);
         model.addAttribute("cartSize", 0);
         model.addAttribute("totalSum", 0.0);
-
-        // No errors:
-        List<WebOrder> webOrders = webOrderService.getAllWebOrders();
-        for (WebOrder order : webOrders) {
-            System.out.println("After processWebOrder(): " + order.getCartItems().size());
-        }
 
         return "redirect:/web-order/all";
     }
@@ -73,19 +69,12 @@ public class WebOrderController {
     @Transactional
     @GetMapping("all")
     public String getAllWebOrders(Model model){
-
-        //FIXME duplicate of CartItem in WebOrder
         List <WebOrder> webOrders = webOrderService.getAllWebOrders();
-        for(WebOrder order : webOrders){
-            System.out.println("After getAllWebOrders(): " + order.getCartItems().size());
-        }
-
         model.addAttribute("webOrders", webOrders);
         return "web-orders";
     }
 
     public double getTotalSum(List<CartItem> cart){
-
         double totalSum = 0.0;
         for (CartItem cartItem : cart) {
             totalSum += cartItem.getProduct().getPrice() * cartItem.getQuantity();
