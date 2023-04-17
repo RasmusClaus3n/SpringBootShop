@@ -20,7 +20,8 @@ public class WebOrderService {
         webOrderRepository.save(webOrder);
     }
 
-    // A very funky method
+    // This is a very weird method call.
+    // For some reason the standard JPA findAll().
     public List<WebOrder> getAllWebOrders() {
         return entityManager.createQuery("SELECT DISTINCT w FROM WebOrder w LEFT JOIN FETCH w.cartItems", WebOrder.class)
                 .getResultList();

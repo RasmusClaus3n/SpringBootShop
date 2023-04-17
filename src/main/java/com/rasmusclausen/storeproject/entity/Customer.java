@@ -3,8 +3,7 @@ package com.rasmusclausen.storeproject.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
@@ -33,5 +32,4 @@ public class Customer {
 
     @OneToOne(mappedBy = "customer", optional = false)
     private WebOrder webOrder;
-
 }
