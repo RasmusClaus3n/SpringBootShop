@@ -22,4 +22,8 @@ public class CartItem {
     @Column(name = "quantity")
     private Integer quantity;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "web_order_id", referencedColumnName = "id", nullable = false)
+    private WebOrder webOrder;
+
 }

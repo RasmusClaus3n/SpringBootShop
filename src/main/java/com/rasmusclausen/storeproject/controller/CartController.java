@@ -25,6 +25,7 @@ public class CartController {
 
     @GetMapping("")
     public String showCart(Model model) {
+
         if (!model.containsAttribute("cart")) {
             model.addAttribute("cart", new ArrayList<CartItem>());
         }

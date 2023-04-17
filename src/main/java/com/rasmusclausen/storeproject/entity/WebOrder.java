@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,8 +18,7 @@ public class WebOrder {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "web_order_id", nullable = false)
+    @OneToMany(mappedBy = "webOrder", cascade = CascadeType.ALL)
     private List<CartItem> cartItems;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -27,5 +27,13 @@ public class WebOrder {
 
     @Column(name = "total_sum", nullable = false)
     private Double totalSum;
+
+    public void addCartItem(CartItem cartItem) {
+        if (cartItems == null) {
+            cartItems = new ArrayList<>();
+        }
+        cartItems.add(cartItem);
+        cartItem.setWebOrder(this);
+    }
 
 }
