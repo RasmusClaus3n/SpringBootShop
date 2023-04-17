@@ -46,12 +46,9 @@ public class WebOrderController {
         webOrder.setCustomer(customer);
 
         // Saves cart items from cart to web order
-        for(CartItem cartItem: cart){
-            CartItem newCartItem = new CartItem();
-            newCartItem.setProduct(cartItem.getProduct());
-            newCartItem.setQuantity(cartItem.getQuantity());
-            webOrder.addCartItem(newCartItem);
-        };
+        for (CartItem cartItem: cart){
+            webOrder.addCartItem(cartItem);
+        }
 
         // Saves web order to database
         webOrderService.saveWebOrder(webOrder);
