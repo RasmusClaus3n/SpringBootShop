@@ -3,7 +3,6 @@ package com.rasmusclausen.storeproject.controller;
 import com.rasmusclausen.storeproject.entity.CartItem;
 import com.rasmusclausen.storeproject.entity.Customer;
 import com.rasmusclausen.storeproject.entity.WebOrder;
-import com.rasmusclausen.storeproject.service.CartItemService;
 import com.rasmusclausen.storeproject.service.WebOrderService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +23,6 @@ public class WebOrderController {
 
     @Autowired
     WebOrderService webOrderService;
-    @Autowired
-    CartItemService cartItemService;
 
     @PostMapping("add")
     public String processWebOrder(@Valid @RequestParam(value = "firstName") String firstName,
@@ -81,12 +78,14 @@ public class WebOrderController {
 
     @GetMapping("all")
     public String getAllWebOrders(Model model){
+
+        //FIXME duplicate of CartItem in WebOrder :(
+
         List <WebOrder> webOrders = webOrderService.getAllWebOrders();
 
         for(WebOrder order : webOrders){
             System.out.println("After getAllWebOrders(): " + order.getCartItems().size());
         }
-
         model.addAttribute("webOrders", webOrders);
         return "web-orders";
     }
