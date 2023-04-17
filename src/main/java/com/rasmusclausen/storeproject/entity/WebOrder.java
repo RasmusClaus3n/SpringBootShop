@@ -18,8 +18,7 @@ public class WebOrder {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    //TODO: orphan_removal = true
-    @OneToMany(mappedBy = "webOrder", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "webOrder", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> cartItems;
 
     @OneToOne(cascade = CascadeType.ALL)

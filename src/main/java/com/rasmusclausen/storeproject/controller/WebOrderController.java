@@ -4,6 +4,7 @@ import com.rasmusclausen.storeproject.entity.CartItem;
 import com.rasmusclausen.storeproject.entity.Customer;
 import com.rasmusclausen.storeproject.entity.WebOrder;
 import com.rasmusclausen.storeproject.service.WebOrderService;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ public class WebOrderController {
     @Autowired
     WebOrderService webOrderService;
 
+    @Transactional
     @PostMapping("add")
     public String processWebOrder(@Valid @RequestParam(value = "firstName") String firstName,
                                   @Valid @RequestParam(value = "lastName") String lastName,
@@ -43,6 +45,7 @@ public class WebOrderController {
         webOrder.setTotalSum(getTotalSum(cart));
         webOrder.setCustomer(customer);
 
+        // Saves cart items from cart to web order
         for(CartItem cartItem: cart){
             CartItem newCartItem = new CartItem();
             newCartItem.setProduct(cartItem.getProduct());
@@ -50,42 +53,36 @@ public class WebOrderController {
             webOrder.addCartItem(newCartItem);
         };
 
-        // Sets web order to customer
-        customer.setWebOrder(webOrder);
-
         // Saves web order to database
         webOrderService.saveWebOrder(webOrder);
 
-        List<WebOrder> webOrders = webOrderService.getAllWebOrders();
-        for (WebOrder order : webOrders) {
-            System.out.println("Before cart.clear(): " + order.getCartItems().size());
-        }
-
         // Clears the cart
         cart.clear();
-
-        for (WebOrder order : webOrders) {
-            System.out.println("After cart.clear(): " + order.getCartItems().size());
-        }
 
         // Update model attributes
         model.addAttribute("cart", cart);
         model.addAttribute("cartSize", 0);
         model.addAttribute("totalSum", 0.0);
 
+        // No errors:
+        List<WebOrder> webOrders = webOrderService.getAllWebOrders();
+        for (WebOrder order : webOrders) {
+            System.out.println("After processWebOrder(): " + order.getCartItems().size());
+        }
+
         return "redirect:/web-order/all";
     }
 
+    @Transactional
     @GetMapping("all")
     public String getAllWebOrders(Model model){
 
-        //FIXME duplicate of CartItem in WebOrder :(
-
+        //FIXME duplicate of CartItem in WebOrder
         List <WebOrder> webOrders = webOrderService.getAllWebOrders();
-
         for(WebOrder order : webOrders){
             System.out.println("After getAllWebOrders(): " + order.getCartItems().size());
         }
+
         model.addAttribute("webOrders", webOrders);
         return "web-orders";
     }
