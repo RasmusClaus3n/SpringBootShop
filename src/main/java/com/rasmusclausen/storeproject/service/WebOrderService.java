@@ -23,8 +23,10 @@ public class WebOrderService {
         webOrderRepository.save(webOrder);
     }
 
-    // This is a very weird method call.
-    // For some reason the standard JPA findAll().
+    // For some reason the standard built in JPA-repository method findAll() did not represent the database correctly.
+    // There was an issue where a duplicate entry of CartItem occurred in the hibernate session but not in the database.
+    // The custom query bellow solved the issue
+
     public List<WebOrder> getAllWebOrders() {
         return entityManager.createQuery("SELECT DISTINCT w FROM WebOrder w LEFT JOIN FETCH w.cartItems", WebOrder.class)
                 .getResultList();

@@ -69,6 +69,7 @@ public class WebOrderController {
     @Transactional
     @GetMapping("all")
     public String getAllWebOrders(Model model){
+        model.addAttribute("activePage", "web-orders");
         List <WebOrder> webOrders = webOrderService.getAllWebOrders();
         model.addAttribute("webOrders", webOrders);
         return "web-orders";

@@ -18,24 +18,19 @@
                 <h3 class="side-title">Category</h3>
                 <ul class="list-unstyled">
                     <li>
-                        <a th:class="(${platform == '' || platform == null ? 'platform-highlight' : ''})" href="/shop?platform=" title="">All <span th:text="${ps5Count + ps4Count + switchCount + xboxCount}" class="pull-right"></span>
-                        </a>
+                        <a th:class="(${platform == '' || platform == null ? 'platform-highlight' : ''})" href="/shop?platform=" title="">All <span th:text="${ps5Count + ps4Count + switchCount + xboxCount}" class="pull-right"></span></a>
                     </li>
                     <li>
-                        <a th:class="(${platform == 'PS5' ? 'platform-highlight' : ''})" href="/shop?platform=PS5" title="">Playstation 5 <span th:text="${ps5Count}" class="pull-right"></span>
-                        </a>
+                        <a th:class="(${platform == 'PS5' ? 'platform-highlight' : ''})" href="/shop?platform=PS5" title="">Playstation 5 <span th:text="${ps5Count}" class="pull-right"></span></a>
                     </li>
                     <li>
-                        <a th:class="(${platform == 'PS4' ? 'platform-highlight' : ''})" href="/shop?platform=PS4"  title="">Playstation 4 <span th:text="${ps4Count}" class="pull-right"></span>
-                        </a>
+                        <a th:class="(${platform == 'PS4' ? 'platform-highlight' : ''})" href="/shop?platform=PS4"  title="">Playstation 4 <span th:text="${ps4Count}" class="pull-right"></span></a>
                     </li>
                     <li>
-                        <a th:class="(${platform == 'Switch' ? 'platform-highlight' : ''})" href="/shop?platform=Switch"  title="">Nintendo Switch <span th:text="${switchCount}" class="pull-right"></span>
-                        </a>
+                        <a th:class="(${platform == 'Switch' ? 'platform-highlight' : ''})" href="/shop?platform=Switch"  title="">Nintendo Switch <span th:text="${switchCount}" class="pull-right"></span></a>
                     </li>
                     <li>
-                        <a th:class="(${platform == 'XboxOne' ? 'platform-highlight' : ''})" a href="/shop?platform=XboxOne"  title="">Xbox One <span th:text="${xboxCount}" class="pull-right">0</span>
-                        </a>
+                        <a th:class="(${platform == 'XboxOne' ? 'platform-highlight' : ''})" href="/shop?platform=XboxOne"  title="">Xbox One <span th:text="${xboxCount}" class="pull-right">0</span></a>
                     </li>
                 </ul>
 

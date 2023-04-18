@@ -14,6 +14,9 @@ public class ProductService {
     @Autowired
     ProductRepository productRepository;
 
+    // The methods bellow are used for fetching the products from the database
+    // taking into account the different user search/filter parameters
+
     public Product findProductById(Long id){
         return productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException

@@ -16,6 +16,9 @@
                         <span th:unless="${cartSize == 0}" style="color: #3adb90 ;font-weight: bold" th:text="${cartSize} == null ? '' : '('+ ${cartSize} + ')'"></span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a th:classappend="${activePage == 'web-orders' ? 'active' : ''}" class="nav-link" aria-current="page" th:href="@{/web-order/all}">Web Orders</a>
+                </li>
             </ul>
 
             <form th:action="@{/shop}" method="get">
