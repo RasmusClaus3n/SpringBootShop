@@ -34,27 +34,39 @@ public class CartController {
             model.addAttribute("cartSize", 0);
         }
 
+        // Gets cart from session
         List <CartItem> cart = (List<CartItem>) model.getAttribute("cart");
-        List <Product> allProducts = productService.getAllProducts();
-        List <Product> productsInCart = new ArrayList<>();
-        List <Product> interestedInProducts = new ArrayList<>();
-        Set<String> genresInterest = new HashSet<>();
 
-        for(CartItem cartItem : cart){
-            productsInCart.add(cartItem.getProduct());
-        }
-
-        for(Product product : productsInCart){
-            System.out.println("Product in cart:" + product.getName());
-        }
+        // This if block contains the code for determining what other products
+        // the user might be interested in. It is based upon the genres of the products in cart
+        // and the genres of the products available
 
         if(!cart.isEmpty()) {
+
+            List<Product> allProducts = productService.getAllProducts();
+            // Initializes the products in cart
+            List<Product> productsInCart = new ArrayList<>();
+            // Initializes the interested-in-products
+            List<Product> interestedInProducts = new ArrayList<>();
+            // Initializes the interested-in-product-genres
+            Set<String> genresInterest = new HashSet<>();
+
+            for (CartItem cartItem : cart) {
+                productsInCart.add(cartItem.getProduct());
+            }
+
+            // TODO delete this
             for (Product product : productsInCart) {
-                if(!genresInterest.contains(product.getGenres()))
+                System.out.println("Product in cart:" + product.getName());
+            }
+
+            for (Product product : productsInCart) {
+                if (!genresInterest.contains(product.getGenres()))
                     genresInterest.addAll(product.getGenres());
             }
 
-            for(String genre : genresInterest){
+            // TODO delete this
+            for (String genre : genresInterest) {
                 System.out.println("Genre interest:" + genre);
             }
 
@@ -65,27 +77,29 @@ public class CartController {
                     }
                 }
             }
-        }
 
-        List <Product> timeToGetRandom = new ArrayList<>();
+            List<Product> timeToGetRandom = new ArrayList<>();
 
-        for(int i = 0; i <= 1; i++){
-            Random random = new Random();
-            int randomIndex = random.nextInt(interestedInProducts.size());
-            timeToGetRandom.add(interestedInProducts.get(randomIndex));
-        }
+            // One or two lucky products get chosen to be viewed by the user
+            for (int i = 0; i <= 1; i++) {
+                Random random = new Random();
+                int randomIndex = random.nextInt(interestedInProducts.size());
+                timeToGetRandom.add(interestedInProducts.get(randomIndex));
+            }
 
-        interestedInProducts = timeToGetRandom;
+            interestedInProducts = timeToGetRandom;
 
-        for(Product product : interestedInProducts){
-            System.out.println("-----");
-            System.out.println("Interested products: " + product.getName());
-            System.out.println(product.getGenres());
+            // TODO delete this
+            for (Product product : interestedInProducts) {
+                System.out.println("-----");
+                System.out.println("Interested products: " + product.getName());
+                System.out.println(product.getGenres());
+            }
+            model.addAttribute("interestedInProducts", interestedInProducts);
         }
 
         // Sets the active page to "cart" for highlighting the navbar-link
         model.addAttribute("activePage", "cart");
-        model.addAttribute("interestedInProducts", interestedInProducts);
 
         return "cart.html";
     }
@@ -98,7 +112,6 @@ public class CartController {
         List<CartItem> cart = (List<CartItem>) model.getAttribute("cart");
 
         if (product != null) {
-
             // Checks if product is already in cart. If so adds 1 to quantity
             boolean found = false;
             for (CartItem item : cart) {
