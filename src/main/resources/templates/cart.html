@@ -115,7 +115,7 @@
                         </p>
                         <hr>
                         <div th:each="product : ${interestedInProducts}">
-                            <a href="#" class="product-name"> Product 1</a>
+                            <a th:href="@{/shop/product/{productId}(productId=${product.id})}"th:text="${product.name}" class="product-name"> Product 1</a>
                             <div class="small m-t-xs">
                                 Many desktop publishing packages and web page editors now.
                             </div>

@@ -71,6 +71,9 @@ public class CartController {
             }
 
             for (Product product : allProducts) {
+                if (!product.getPlatform().equals(productsInCart.get(0).getPlatform())) {
+                    continue; // skip products with different platform
+                }
                 for (String genre : product.getGenres()) {
                     if (genresInterest.contains(genre) && !isProductInCart(product, cart) && !interestedInProducts.contains(product)) {
                         interestedInProducts.add(product);
@@ -83,8 +86,12 @@ public class CartController {
             // One or two lucky products get chosen to be viewed by the user
             for (int i = 0; i <= 1; i++) {
                 Random random = new Random();
-                int randomIndex = random.nextInt(interestedInProducts.size());
-                timeToGetRandom.add(interestedInProducts.get(randomIndex));
+                if(!interestedInProducts.isEmpty()) {
+                    int randomIndex = random.nextInt(interestedInProducts.size());
+                    if (!timeToGetRandom.contains(interestedInProducts.get(randomIndex))) {
+                        timeToGetRandom.add(interestedInProducts.get(randomIndex));
+                    }
+                }
             }
 
             interestedInProducts = timeToGetRandom;
