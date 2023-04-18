@@ -1,3 +1,7 @@
 body{
     font-family: 'Roboto', sans-serif;
-    }
+}
+
+.search-bar{
+    width: auto;
+}

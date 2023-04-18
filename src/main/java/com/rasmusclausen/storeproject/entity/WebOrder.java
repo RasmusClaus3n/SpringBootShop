@@ -3,8 +3,10 @@ package com.rasmusclausen.storeproject.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -27,6 +29,9 @@ public class WebOrder {
 
     @Column(name = "total_sum", nullable = false)
     private Double totalSum;
+
+    @CreationTimestamp
+    private Date created;
 
     public void addCartItem(CartItem cartItem) {
         if (cartItems == null) {

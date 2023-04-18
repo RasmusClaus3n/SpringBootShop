@@ -35,7 +35,7 @@ public class WebOrderService {
     @Transactional
     public void updateWebOrder(WebOrder webOrder) throws WebOrderNotFoundException {
         WebOrder existingWebOrder = webOrderRepository.findById(webOrder.getId())
-                .orElseThrow(() -> new WebOrderNotFoundException("Web with id " + webOrder.getId() + " was not found"));
+                .orElseThrow(() -> new WebOrderNotFoundException("Web order with id " + webOrder.getId() + " was not found"));
 
         // Update the existing web order with the new values
         existingWebOrder.setTotalSum(webOrder.getTotalSum());

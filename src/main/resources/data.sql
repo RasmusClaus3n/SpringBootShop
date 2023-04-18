@@ -30,7 +30,7 @@ VALUES
 INSERT INTO product(name, description, price, image_url, platform, category)
 VALUES (
 'Resident Evil 4',
-'Survival is just the beginning.\nSix years have passed since the biological disaster in Raccoon City.Agent Leon S. Kennedy, one of the survivors of the incident, has been sent to rescue the presidents kidnapped daughter. He tracks her to a secluded European village, where there is something terribly wrong with the locals. And the curtain rises on this story of daring rescue and grueling horror where life and death, terror and catharsis intersect.\nFeaturing modernized gameplay, a reimagined storyline, and vividly detailed graphics,Resident Evil 4 marks the rebirth of an industry juggernaut.\nRelive the nightmare that revolutionized survival horror.',
+'Survival is just the beginning. Six years have passed since the biological disaster in Raccoon City.Agent Leon S. Kennedy, one of the survivors of the incident, has been sent to rescue the presidents kidnapped daughter. He tracks her to a secluded European village, where there is something terribly wrong with the locals. And the curtain rises on this story of daring rescue and grueling horror where life and death, terror and catharsis intersect.Featuring modernized gameplay, a reimagined storyline, and vividly detailed graphics,Resident Evil 4 marks the rebirth of an industry juggernaut.Relive the nightmare that revolutionized survival horror.',
 59.99,
 'https://cdn.mobygames.com/covers/16977235-resident-evil-4-playstation-5-front-cover.jpg',
 'PS5',
@@ -46,7 +46,7 @@ VALUES (
 ),
 (
 'Elden Ring',
-'THE NEW FANTASY ACTION RPG.\nRise, Tarnished, and be guided by grace to brandish the power of the Elden Ring and become an Elden Lord in the Lands Between.',
+'THE NEW FANTASY ACTION RPG. Rise, Tarnished, and be guided by grace to brandish the power of the Elden Ring and become an Elden Lord in the Lands Between.',
 49.99,
 'https://cdn.mobygames.com/covers/10722526-elden-ring-playstation-5-front-cover.jpg',
 'PS5',
@@ -164,6 +164,16 @@ VALUES (
 'Switch',
 'Video game'
 );
+
+INSERT INTO customer (first_name, last_name, address)
+VALUES ('John', 'Doe', '123 Main St');
+
+INSERT INTO web_order (customer_id, total_sum, created)
+VALUES (1, 119.98, NOW());
+
+INSERT INTO cart_item (product_id, quantity, web_order_id)
+VALUES (1, 2, 1);
+
 
 --SET FOREIGN_KEY_CHECKS = 1;
 SET REFERENTIAL_INTEGRITY TRUE;

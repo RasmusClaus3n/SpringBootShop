@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductService {
 
@@ -44,6 +46,10 @@ public class ProductService {
 
     public long getProductCountByPlatform(String platform) {
         return productRepository.getCountByPlatform(platform);
+    }
+
+    public List<Product> getAllProducts(){
+        return productRepository.findAll();
     }
 }
 

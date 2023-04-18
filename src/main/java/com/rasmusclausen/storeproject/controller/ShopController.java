@@ -89,7 +89,7 @@ public class ShopController {
     }
 
     @GetMapping("/product/{productId}")
-    public String getProductDetails(@PathVariable Long productId, Model model) {
+    public String getProductById(@PathVariable Long productId, Model model) {
         Product product = productService.findProductById(productId);
         model.addAttribute("product", product);
         return "product";

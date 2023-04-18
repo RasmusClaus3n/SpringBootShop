@@ -15,7 +15,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Page<Product> findByPlatformContaining(String platform, Pageable pageable);
     Page<Product> findByNameContaining(String name, Pageable pageable);
 
-
     @Query("SELECT COUNT(p) FROM Product p WHERE UPPER(p.platform) = UPPER(:platform)")
     Long getCountByPlatform(@Param("platform") String platform);
 

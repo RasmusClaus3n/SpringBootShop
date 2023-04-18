@@ -3,15 +3,15 @@
 <head th:replace="~{fragments-head}">
 </head>
 <body>
-
 <!-- Navbar -->
 <div th:replace="~{fragments-navbar}"></div>
-<div class="container">
-    <table class="table">
+<!-- Order table -->
+<div th:unless="${webOrders.isEmpty()}" class="container" style="margin-top: 30px;">
+    <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="col">Web Order ID</th>
-            <th scope="col">Customer ID</th>
+            <th scope="col">Order ID</th>
+            <th scope="col">Created</th>
             <th scope="col">Customer First Name</th>
             <th scope="col">Customer Last Name</th>
             <th scope="col">Customer Address</th>
@@ -22,18 +22,18 @@
         <tbody>
         <tr th:each="webOrder : ${webOrders}">
             <td th:text="${webOrder.id}"></td>
-            <td th:text="${webOrder.customer.id}"></td>
+            <td th:text="${webOrder.created}"></td>
             <td th:text="${webOrder.customer.firstName}"></td>
             <td th:text="${webOrder.customer.lastName}"></td>
             <td th:text="${webOrder.customer.address}"></td>
             <td>
                 <ul>
                     <li th:each="cartItem : ${webOrder.cartItems}">
-                        <span th:text="${cartItem.product.name + ' x ' + cartItem.quantity}"></span>
+                        <span th:text="${cartItem.product.name + ' (' + cartItem.product.platform + ')' + ' x ' + cartItem.quantity}"></span>
                     </li>
                 </ul>
             </td>
-            <td th:text="${webOrder.totalSum}"></td>
+            <td th:text="'$' + ${webOrder.totalSum}"></td>
         </tr>
         </tbody>
     </table>

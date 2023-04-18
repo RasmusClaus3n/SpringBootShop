@@ -8,9 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Formatter;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @SessionAttributes({"cart", "totalSum", "cartSize"})
@@ -35,8 +33,60 @@ public class CartController {
         if (!model.containsAttribute("cartSize")) {
             model.addAttribute("cartSize", 0);
         }
+
+        List <CartItem> cart = (List<CartItem>) model.getAttribute("cart");
+        List <Product> allProducts = productService.getAllProducts();
+        List <Product> productsInCart = new ArrayList<>();
+        List <Product> interestedInProducts = new ArrayList<>();
+        Set<String> genresInterest = new HashSet<>();
+
+        for(CartItem cartItem : cart){
+            productsInCart.add(cartItem.getProduct());
+        }
+
+        for(Product product : productsInCart){
+            System.out.println("Product in cart:" + product.getName());
+        }
+
+        if(!cart.isEmpty()) {
+            for (Product product : productsInCart) {
+                if(!genresInterest.contains(product.getGenres()))
+                    genresInterest.addAll(product.getGenres());
+            }
+
+            for(String genre : genresInterest){
+                System.out.println("Genre interest:" + genre);
+            }
+
+            for (Product product : allProducts) {
+                for (String genre : product.getGenres()) {
+                    if (genresInterest.contains(genre) && !isProductInCart(product, cart) && !interestedInProducts.contains(product)) {
+                        interestedInProducts.add(product);
+                    }
+                }
+            }
+        }
+
+        List <Product> timeToGetRandom = new ArrayList<>();
+
+        for(int i = 0; i <= 1; i++){
+            Random random = new Random();
+            int randomIndex = random.nextInt(interestedInProducts.size());
+            timeToGetRandom.add(interestedInProducts.get(randomIndex));
+        }
+
+        interestedInProducts = timeToGetRandom;
+
+        for(Product product : interestedInProducts){
+            System.out.println("-----");
+            System.out.println("Interested products: " + product.getName());
+            System.out.println(product.getGenres());
+        }
+
         // Sets the active page to "cart" for highlighting the navbar-link
         model.addAttribute("activePage", "cart");
+        model.addAttribute("interestedInProducts", interestedInProducts);
+
         return "cart.html";
     }
 
@@ -113,5 +163,14 @@ public class CartController {
             cartSize += cartItem.getQuantity();
         }
         return cartSize;
+    }
+
+    private boolean isProductInCart(Product product, List<CartItem> cart) {
+        for (CartItem item : cart) {
+            if (item.getProduct().getId().equals(product.getId())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
