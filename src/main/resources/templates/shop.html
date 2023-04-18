@@ -57,7 +57,9 @@
                 <!--Product-->
                 <div class="item">
                     <!--TODO Product details-->
-                    <img class="img-responsive" th:src="${product.imageUrl}" alt="">
+                    <a th:href="@{/shop/product/{productId}(productId=${product.id})}">
+                        <img class="img-responsive" th:src="${product.imageUrl}" alt="">
+                    </a>
                     <!--Product details-->
                     <div class="item-dtls">
                         <h6 class="text-muted" th:text="${product.platform} + ' / ' + ${product.category}"></h6>

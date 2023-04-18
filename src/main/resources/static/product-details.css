@@ -1,0 +1,15 @@
+.product-details-img{
+    width: 100%;
+}
+
+.product-details-container{
+    margin-top: 50px;
+    width: 100%;
+}
+
+.product-price{
+    color: #24b270;
+    font-size: 25px;
+    margin-top: 10px;
+    font-weight: bold;
+}

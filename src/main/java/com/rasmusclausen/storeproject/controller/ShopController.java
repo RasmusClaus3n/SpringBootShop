@@ -87,4 +87,11 @@ public class ShopController {
 
         return "shop.html";
     }
+
+    @GetMapping("/product/{productId}")
+    public String getProductDetails(@PathVariable Long productId, Model model) {
+        Product product = productService.findProductById(productId);
+        model.addAttribute("product", product);
+        return "product";
+    }
 }

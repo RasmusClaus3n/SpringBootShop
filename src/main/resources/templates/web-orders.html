@@ -7,36 +7,36 @@
 <!-- Navbar -->
 <div th:replace="~{fragments-navbar}"></div>
 <div class="container">
-<table class="table">
-    <thead>
-    <tr>
-        <th scope="col">Web Order ID</th>
-        <th scope="col">Customer ID</th>
-        <th scope="col">Customer First Name</th>
-        <th scope="col">Customer Last Name</th>
-        <th scope="col">Customer Address</th>
-        <th scope="col">Products</th>
-        <th scope="col">Total Sum</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="webOrder : ${webOrders}">
-        <td th:text="${webOrder.id}"></td>
-        <td th:text="${webOrder.customer.id}"></td>
-        <td th:text="${webOrder.customer.firstName}"></td>
-        <td th:text="${webOrder.customer.lastName}"></td>
-        <td th:text="${webOrder.customer.address}"></td>
-        <td>
-            <ul>
-                <li th:each="cartItem : ${webOrder.cartItems}">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Web Order ID</th>
+            <th scope="col">Customer ID</th>
+            <th scope="col">Customer First Name</th>
+            <th scope="col">Customer Last Name</th>
+            <th scope="col">Customer Address</th>
+            <th scope="col">Products</th>
+            <th scope="col">Total Sum</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="webOrder : ${webOrders}">
+            <td th:text="${webOrder.id}"></td>
+            <td th:text="${webOrder.customer.id}"></td>
+            <td th:text="${webOrder.customer.firstName}"></td>
+            <td th:text="${webOrder.customer.lastName}"></td>
+            <td th:text="${webOrder.customer.address}"></td>
+            <td>
+                <ul>
+                    <li th:each="cartItem : ${webOrder.cartItems}">
                         <span th:text="${cartItem.product.name + ' x ' + cartItem.quantity}"></span>
-                </li>
-            </ul>
-        </td>
-        <td th:text="${webOrder.totalSum}"></td>
-    </tr>
-    </tbody>
-</table>
+                    </li>
+                </ul>
+            </td>
+            <td th:text="${webOrder.totalSum}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>
