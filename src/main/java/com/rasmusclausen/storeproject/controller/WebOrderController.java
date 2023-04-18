@@ -63,7 +63,7 @@ public class WebOrderController {
         model.addAttribute("cartSize", 0);
         model.addAttribute("totalSum", 0.0);
 
-        return "cart";
+        return "redirect:/web-order/all";
     }
 
     @Transactional

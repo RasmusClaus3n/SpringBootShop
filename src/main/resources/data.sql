@@ -17,15 +17,21 @@ VALUES
     (6, 'Adventure'),
 	(7, 'Adventure'),
     (7, 'RPG'),
-    (8, 'Plattformer'),
+    (8, 'Platformer'),
     (8, 'Action'),
     (9, 'Horror'),
-    (10, 'Plattformer'),
+    (10, 'Platformer'),
     (10, 'Adventure'),
     (11, 'Adventure'),
-    (11, 'Plattformer'),
+    (11, 'Platformer'),
     (12, 'Action'),
-    (12, 'RPG');
+    (12, 'RPG'),
+    (13, 'Racing'),
+    (14, 'Action'),
+    (15, 'RPG'),
+    (16, 'Action'),
+    (17, 'Adventure'),
+    (17, 'RPG');
 
 INSERT INTO product(name, description, price, image_url, platform, category)
 VALUES (

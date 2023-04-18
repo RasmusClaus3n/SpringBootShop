@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @SessionAttributes({"cart", "totalSum", "cartSize"})
@@ -24,6 +25,7 @@ public class CartController {
     @GetMapping("")
     public String showCart(Model model) {
 
+        // Ensures that relevant session attributes are added
         if (!model.containsAttribute("cart")) {
             model.addAttribute("cart", new ArrayList<CartItem>());
         }
@@ -35,73 +37,55 @@ public class CartController {
         }
 
         // Gets cart from session
-        List <CartItem> cart = (List<CartItem>) model.getAttribute("cart");
+        List<CartItem> cart = (List<CartItem>) model.getAttribute("cart");
 
         // This if block contains the code for determining what other products
-        // the user might be interested in. It is based upon the genres of the products in cart
-        // and the genres of the products available
-
-        if(!cart.isEmpty()) {
+        // the user might be interested in. It is based upon the genres and platforms
+        // of the products in cart and the genres and platform of the products available
+        if (!cart.isEmpty()) {
 
             List<Product> allProducts = productService.getAllProducts();
             // Initializes the products in cart
             List<Product> productsInCart = new ArrayList<>();
-            // Initializes the interested-in-products
+            // Initializes the platforms of the products in cart
+            Set<String> platformsInCart = new HashSet<>();
+            // Initializes the interested in products
             List<Product> interestedInProducts = new ArrayList<>();
-            // Initializes the interested-in-product-genres
+            // Initializes the interested in product genres
             Set<String> genresInterest = new HashSet<>();
 
+            // Adds products and platforms from cart to the new ArrayList and HashSet
             for (CartItem cartItem : cart) {
                 productsInCart.add(cartItem.getProduct());
+                platformsInCart.add(cartItem.getProduct().getPlatform());
             }
 
-            // TODO delete this
+            // Adds all genres of the products in cart to the genresInterest set
             for (Product product : productsInCart) {
-                System.out.println("Product in cart:" + product.getName());
+                genresInterest.addAll(product.getGenres());
             }
 
-            for (Product product : productsInCart) {
-                if (!genresInterest.contains(product.getGenres()))
-                    genresInterest.addAll(product.getGenres());
-            }
+            // Filters all products to include only those with platforms that match the platforms of the products in cart
+            List<Product> productsWithMatchingPlatforms = allProducts.stream()
+                    .filter(product -> platformsInCart.contains(product.getPlatform())).toList();
 
-            // TODO delete this
-            for (String genre : genresInterest) {
-                System.out.println("Genre interest:" + genre);
-            }
+            // Filters the products with matching platforms to include only those that have at least one genre in common with the products in cart
+            interestedInProducts = productsWithMatchingPlatforms.stream()
+                    .filter(product -> {
+                        for (String genre : product.getGenres()) {
+                            if (genresInterest.contains(genre) && !isProductInCart(product, cart)) {
+                                return true;
+                            }
+                        }
+                        return false;
+                    })
+                    .collect(Collectors.toList());
 
-            for (Product product : allProducts) {
-                if (!product.getPlatform().equals(productsInCart.get(0).getPlatform())) {
-                    continue; // skip products with different platform
-                }
-                for (String genre : product.getGenres()) {
-                    if (genresInterest.contains(genre) && !isProductInCart(product, cart) && !interestedInProducts.contains(product)) {
-                        interestedInProducts.add(product);
-                    }
-                }
-            }
+            // Randomly selects up to two products to display
+            Collections.shuffle(interestedInProducts);
+            interestedInProducts = interestedInProducts.stream().limit(2).collect(Collectors.toList());
 
-            List<Product> timeToGetRandom = new ArrayList<>();
-
-            // One or two lucky products get chosen to be viewed by the user
-            for (int i = 0; i <= 1; i++) {
-                Random random = new Random();
-                if(!interestedInProducts.isEmpty()) {
-                    int randomIndex = random.nextInt(interestedInProducts.size());
-                    if (!timeToGetRandom.contains(interestedInProducts.get(randomIndex))) {
-                        timeToGetRandom.add(interestedInProducts.get(randomIndex));
-                    }
-                }
-            }
-
-            interestedInProducts = timeToGetRandom;
-
-            // TODO delete this
-            for (Product product : interestedInProducts) {
-                System.out.println("-----");
-                System.out.println("Interested products: " + product.getName());
-                System.out.println(product.getGenres());
-            }
+            // Adds the interested products to the model
             model.addAttribute("interestedInProducts", interestedInProducts);
         }
 

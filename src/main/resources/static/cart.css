@@ -7,6 +7,7 @@ h3 {
 }
 .text-navy {
     color: #1ab394;
+    text-decoration: none !important;
 }
 
 .product-imitation.xl {
@@ -93,16 +94,27 @@ table.shoping-cart-table tr td:last-child {
 }
 
 .cart-product-imitation img {
-    width: 100%;
-	height: inherit !important;
+  width: 100%;
+  height: inherit !important;
+  object-fit: contain !important;
+}
+
+.product-interested-in{
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.product-interested-in-img{
+    width: 40%;
+    height: inherit !important;
     object-fit: contain !important;
 }
 
 .btn-danger{
-  border: none !important;
+   border: none !important;
 }
 
 .container{
-    margin-top: 20px;
+   margin-top: 20px;
 }
 
