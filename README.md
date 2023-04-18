@@ -1,4 +1,5 @@
-A Java Spring Boot web application where users can add products to a cart and checkout their order.
+A Java Spring MVC web application that allows users to browse and purchase products and implements a shopping cart functionality.
+The application has database support to store products and orders. The default database used is H2 but also includes configurations for MYSQL.
 
 After running the application go to:
 http://localhost:8082/shop
