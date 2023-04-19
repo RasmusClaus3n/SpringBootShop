@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Formatter;
 import java.util.List;
 
@@ -75,12 +77,14 @@ public class WebOrderController {
         return "web-orders";
     }
 
-    public double getTotalSum(List<CartItem> cart){
-        double totalSum = 0.0;
+    public BigDecimal getTotalSum(List<CartItem> cart){
+        BigDecimal totalSum = BigDecimal.ZERO;
         for (CartItem cartItem : cart) {
-            totalSum += cartItem.getProduct().getPrice() * cartItem.getQuantity();
+            BigDecimal itemPrice = cartItem.getProduct().getPrice();
+            BigDecimal itemQuantity = BigDecimal.valueOf(cartItem.getQuantity());
+            totalSum = totalSum.add(itemPrice.multiply(itemQuantity));
         }
-        formatter.format("%.2f", totalSum);
-        return totalSum;
+        return totalSum.setScale(2, RoundingMode.HALF_UP);
     }
+
 }

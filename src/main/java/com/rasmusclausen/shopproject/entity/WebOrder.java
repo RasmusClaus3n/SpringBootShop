@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,7 +29,7 @@ public class WebOrder {
     private Customer customer;
 
     @Column(name = "total_sum", nullable = false)
-    private Double totalSum;
+    private BigDecimal totalSum;
 
     @CreationTimestamp
     private Date created;

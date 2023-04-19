@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -127,7 +129,7 @@ public class CartController {
             model.addAttribute("cart", cart);
         }
 
-        double totalSum = getTotalSum(cart);
+        BigDecimal totalSum = getTotalSum(cart);
         int cartSize = getCartSize(cart);
 
         // Updates cartSize and totalSum in session
@@ -145,7 +147,7 @@ public class CartController {
             cart.removeIf(item -> item.getProduct().getId().equals(productId));
         }
 
-        double totalSum = getTotalSum(cart);
+        BigDecimal totalSum = getTotalSum(cart);
         int cartSize = getCartSize(cart);
 
         model.addAttribute("cart", cart);
@@ -183,7 +185,7 @@ public class CartController {
             }
 
 
-        double totalSum = getTotalSum(cart);
+        BigDecimal totalSum = getTotalSum(cart);
         int cartSize = getCartSize(cart);
 
         model.addAttribute("cart", cart);
@@ -195,13 +197,14 @@ public class CartController {
 
     // Helper methods
 
-    public double getTotalSum(List<CartItem> cart){
-        double totalSum = 0.0;
+    public BigDecimal getTotalSum(List<CartItem> cart){
+        BigDecimal totalSum = BigDecimal.ZERO;
         for (CartItem cartItem : cart) {
-            totalSum += cartItem.getProduct().getPrice() * cartItem.getQuantity();
+            BigDecimal itemPrice = cartItem.getProduct().getPrice();
+            BigDecimal itemQuantity = BigDecimal.valueOf(cartItem.getQuantity());
+            totalSum = totalSum.add(itemPrice.multiply(itemQuantity));
         }
-        formatter.format("%.2f", totalSum);
-        return totalSum;
+        return totalSum.setScale(2, RoundingMode.HALF_UP);
     }
 
     public int getCartSize(List<CartItem> cart){
