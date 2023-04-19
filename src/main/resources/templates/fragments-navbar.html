@@ -21,7 +21,7 @@
                 </li>
             </ul>
 
-            <form th:action="@{/shop}" method="get">
+            <form th:if="${activePage == 'shop'}" th:action="@{/shop}" method="get">
                 <div class="d-flex">
                     <div style="margin-right: 10px">
                         <select name="platform" th:value="${platform}" class="search-bar form-select">
@@ -31,7 +31,7 @@
                             <option value="XboxOne">Xbox One</option>
                         </select>
                     </div>
-                    <input class="form-control me-2" input type="text" placeholder="Search by keyword" name="name" th:value="${name}" >
+                    <input class="form-control me-2" input type="text" placeholder="Search by product name" name="name" th:value="${name}" >
                     <button class="btn btn-primary" type="submit" value="Filter">Search</button>
                 </div>
             </form>

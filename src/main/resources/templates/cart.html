@@ -33,7 +33,9 @@
                                     <td width="90">
                                         <div class="cart-product-imitation">
                                             <!-- Product Image -->
-                                            <img th:src="${cartItem.product.imageUrl}" alt="">
+                                            <a th:href="@{/shop/product/{productId}(productId=${cartItem.product.id})}">
+                                                <img th:src="${cartItem.product.imageUrl}" alt="">
+                                            </a>
                                         </div>
                                     </td>
                                     <td class="desc">
@@ -61,7 +63,7 @@
                                     </td>
                                     <td width="65">
                                         <!--Product quantity-->
-                                        <input type="text" class="form-control" th:placeholder="${cartItem.quantity}">
+                                        <input style="text-align: center;" type="text" class="form-control" th:placeholder="${cartItem.quantity}" readonly>
                                         <!--Change quantity buttons-->
                                         <form th:action="@{/cart/changeQuantity}" method="post">
                                             <input type="hidden" name="productId" th:value="${cartItem.product.id}" />
@@ -72,7 +74,7 @@
                                             </span>
                                         </form>
                                     </td>
-                                    <!--Product quantity total-->
+                                    <!--Product quantity total sum-->
                                     <td>
                                         <h4 th:text="'$'+${cartItem.product.price * cartItem.quantity}" style="width: 110px;"></h4>
                                     </td>
@@ -86,7 +88,6 @@
                     <div class="ibox-content">
                         <button th:classappend="${cartSize == 0 ? 'disabled' : ''}" class="btn btn-success pull-right" data-toggle="modal" data-target="#checkoutModal"><i class="fa fa fa-shopping-cart"></i> Checkout</button>
                         <a th:href="@{/shop}"><button class="btn btn-primary" ><i class="fa fa-arrow-left"></i> Continue shopping</button></a>
-
                     </div>
                 </div>
 
@@ -123,7 +124,9 @@
                         <div th:each="product : ${interestedInProducts}" class=="product-interested-in" style="text-align: center;">
                             <div class="product-interested-in-img">
                                 <!-- Product Image -->
-                                <img th:src="${product.imageUrl}" style="width: 40%; text-align: center;">
+                                <a th:href="@{/shop/product/{productId}(productId=${product.id})}">
+                                    <img th:src="${product.imageUrl}" style="width: 40%; text-align: center;">
+                                </a>
                             </div>
                             <a th:href="@{/shop/product/{productId}(productId=${product.id})}"th:text="${product.name}" class="text-navy"></a>
                             <dl class="small m-b-none text-muted">
