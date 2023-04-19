@@ -73,7 +73,7 @@ public class ShopController {
         // Sets the active page to "shop" for highlighting the navbar-link
         model.addAttribute("activePage", "shop");
 
-        // Updates model attributes
+        // Updates models attributes
         model.addAttribute("ps4Count", ps4Count);
         model.addAttribute("ps5Count", ps5Count);
         model.addAttribute("switchCount", switchCount);
