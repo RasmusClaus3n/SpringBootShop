@@ -56,7 +56,6 @@
             <div th:each="product : ${allProducts}" class="col-md-3 col-sm-6">
                 <!--Product-->
                 <div class="item">
-                    <!--TODO Product details-->
                     <a th:href="@{/shop/product/{productId}(productId=${product.id})}">
                         <img class="img-responsive" th:src="${product.imageUrl}" alt="">
                     </a>
@@ -74,7 +73,7 @@
                         <input type="hidden" name="productId" th:value="${product.id}">
                         <input type="hidden" name="quantity" value="1">
                         <div class="ecom bg-lblue">
-                            <button class="btn btn-success" type="submit">Add to cart</button>
+                            <button class="btn btn-success" type="submit"><i class="fa fa-cart-plus"></i> Add to cart</button>
                         </div>
                     </form>
 

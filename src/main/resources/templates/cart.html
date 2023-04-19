@@ -62,9 +62,19 @@
                                     <td width="65">
                                         <!--Product quantity-->
                                         <input type="text" class="form-control" th:placeholder="${cartItem.quantity}">
+                                        <!--Change quantity buttons-->
+                                        <form th:action="@{/cart/changeQuantity}" method="post">
+                                            <input type="hidden" name="productId" th:value="${cartItem.product.id}" />
+                                            <span style="display: flex;">
+                                                <input type="hidden" name="quantity" th:value="${cartItem.quantity}">
+                                                <button class="btn-outline-dark btn-sm" type="submit" name="decQuantity" value="true"><i class="fa fa-minus"></i></button>
+                                                <button class="btn-outline-dark btn-sm" type="submit" name="incQuantity" value="true"><i class="fa fa-plus"></i></button>
+                                            </span>
+                                        </form>
                                     </td>
+                                    <!--Product quantity total-->
                                     <td>
-                                        <h4 th:text="'$'+${cartItem.product.price * cartItem.quantity}"></h4>
+                                        <h4 th:text="'$'+${cartItem.product.price * cartItem.quantity}" style="width: 110px;"></h4>
                                     </td>
                                 </tr>
                                 </tbody>

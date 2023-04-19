@@ -97,7 +97,6 @@ public class CartController {
         return "cart.html";
     }
 
-
     @PostMapping("add-to-cart")
     public String addToCart(@RequestParam Long productId,
                             @RequestParam Integer quantity,
@@ -157,35 +156,45 @@ public class CartController {
 
     @PostMapping("changeQuantity")
     public String changeQuantity(@RequestParam Long productId,
-                                 @RequestParam (required = false) boolean incQuantity,
-                                 @RequestParam (required = false) boolean decQuantity,
-                                 Model model){
+                                 @RequestParam Integer quantity,
+                                 @RequestParam(required = false) Boolean incQuantity,
+                                 @RequestParam(required = false) Boolean decQuantity,
+                                 Model model) {
         Product product = productService.findProductById(productId);
         // Gets cart from session
         List<CartItem> cart = (List<CartItem>) model.getAttribute("cart");
 
-        if(incQuantity) {
-            for (CartItem cartItem : cart) {
-                if (cartItem.getProduct() == product) {
-                    cartItem.setQuantity(cartItem.getQuantity() + 1);
+            if (incQuantity != null && incQuantity && quantity < 10) {
+                {
+                    for (CartItem cartItem : cart) {
+                        if (cartItem.getProduct().getId().equals(product.getId())) {
+                            cartItem.setQuantity(cartItem.getQuantity() + 1);
+                        }
+                    }
                 }
             }
-        }
 
-        if(decQuantity) {
-            for (CartItem cartItem : cart) {
-                if (cartItem.getProduct() == product) {
-                    cartItem.setQuantity(cartItem.getQuantity() - 1);
+            if (decQuantity != null && decQuantity && quantity > 1) {
+                for (CartItem cartItem : cart) {
+                    if (cartItem.getProduct().getId().equals(product.getId())) {
+                        cartItem.setQuantity(cartItem.getQuantity() - 1);
+                    }
                 }
             }
-        }
+
+
+        double totalSum = getTotalSum(cart);
+        int cartSize = getCartSize(cart);
 
         model.addAttribute("cart", cart);
+        model.addAttribute("cartSize", cartSize);
+        model.addAttribute("totalSum", totalSum);
 
-       return "cart";
+        return "cart";
     }
 
     // Helper methods
+
     public double getTotalSum(List<CartItem> cart){
         double totalSum = 0.0;
         for (CartItem cartItem : cart) {
