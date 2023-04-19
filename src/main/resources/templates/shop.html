@@ -51,6 +51,7 @@
     </div>
 
     <!--Product list-->
+    <div class="shop-items row" style="justify-content: center;" th:if="${totalPages == 0}">No results :(</div>
     <div class="shop-items">
         <div class="row">
             <div th:each="product : ${allProducts}" class="col-md-3 col-sm-6">
@@ -82,8 +83,11 @@
 
         </div>
     </div>
+
     <!--Pagination-->
+    <div th:unless="${totalPages == 0}">
     <div th:replace="~{fragments-pagination}"></div>
+    </div>
 </div>
 
 </body>

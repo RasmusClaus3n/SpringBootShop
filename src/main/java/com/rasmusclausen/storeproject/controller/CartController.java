@@ -190,7 +190,7 @@ public class CartController {
         model.addAttribute("cartSize", cartSize);
         model.addAttribute("totalSum", totalSum);
 
-        return "cart";
+        return "redirect:/cart";
     }
 
     // Helper methods
