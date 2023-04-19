@@ -40,7 +40,7 @@ public class CartController {
 
         // This if block contains the code for determining what other products
         // the user might be interested in. It is based upon the genres and platforms
-        // of the products in cart and the genres and platform of the products available
+        // of the products in cart and the genres and platforms of the products available
         if (!cart.isEmpty()) {
 
             List<Product> allProducts = productService.getAllProducts();
