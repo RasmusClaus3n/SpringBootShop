@@ -1,4 +1,4 @@
-package com.rasmusclausen.storeproject.exception;
+package com.rasmusclausen.shopproject.exception;
 
 public class WebOrderNotFoundException extends Exception{
     public WebOrderNotFoundException (String message){

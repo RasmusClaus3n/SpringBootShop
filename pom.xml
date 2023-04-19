@@ -11,8 +11,8 @@
 	<groupId>com.rasmusclausen</groupId>
 	<artifactId>storeprojectAPI</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>storeprojectAPI</name>
-	<description>Store Project API</description>
+	<name>shop-project</name>
+	<description>Java Spring MVC Shop Application</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

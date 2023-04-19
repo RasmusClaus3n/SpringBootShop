@@ -1,13 +1,13 @@
-package com.rasmusclausen.storeproject;
+package com.rasmusclausen.shopproject;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class StoreProjectApplication {
+public class ShopProjectApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(StoreProjectApplication.class, args);
+		SpringApplication.run(ShopProjectApplication.class, args);
 	}
 
 }

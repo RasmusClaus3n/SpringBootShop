@@ -1,4 +1,4 @@
-package com.rasmusclausen.storeproject.entity;
+package com.rasmusclausen.shopproject.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

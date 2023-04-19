@@ -1,8 +1,8 @@
-package com.rasmusclausen.storeproject.service;
+package com.rasmusclausen.shopproject.service;
 
-import com.rasmusclausen.storeproject.entity.Product;
-import com.rasmusclausen.storeproject.exception.ProductNotFoundException;
-import com.rasmusclausen.storeproject.repository.ProductRepository;
+import com.rasmusclausen.shopproject.entity.Product;
+import com.rasmusclausen.shopproject.exception.ProductNotFoundException;
+import com.rasmusclausen.shopproject.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

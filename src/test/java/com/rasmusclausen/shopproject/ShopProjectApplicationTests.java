@@ -1,10 +1,10 @@
-package com.rasmusclausen.storeproject;
+package com.rasmusclausen.shopproject;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class StoreProjectApplicationTests {
+class ShopProjectApplicationTests {
 
 	@Test
 	void contextLoads() {

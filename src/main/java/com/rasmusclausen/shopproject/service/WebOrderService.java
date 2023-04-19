@@ -1,8 +1,8 @@
-package com.rasmusclausen.storeproject.service;
+package com.rasmusclausen.shopproject.service;
 
-import com.rasmusclausen.storeproject.entity.WebOrder;
-import com.rasmusclausen.storeproject.exception.WebOrderNotFoundException;
-import com.rasmusclausen.storeproject.repository.WebOrderRepository;
+import com.rasmusclausen.shopproject.entity.WebOrder;
+import com.rasmusclausen.shopproject.exception.WebOrderNotFoundException;
+import com.rasmusclausen.shopproject.repository.WebOrderRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

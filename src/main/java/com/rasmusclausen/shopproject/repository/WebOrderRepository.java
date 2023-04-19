@@ -1,6 +1,6 @@
-package com.rasmusclausen.storeproject.repository;
+package com.rasmusclausen.shopproject.repository;
 
-import com.rasmusclausen.storeproject.entity.WebOrder;
+import com.rasmusclausen.shopproject.entity.WebOrder;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

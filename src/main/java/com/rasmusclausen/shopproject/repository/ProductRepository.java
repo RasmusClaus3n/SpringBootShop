@@ -1,6 +1,6 @@
-package com.rasmusclausen.storeproject.repository;
+package com.rasmusclausen.shopproject.repository;
 
-import com.rasmusclausen.storeproject.entity.Product;
+import com.rasmusclausen.shopproject.entity.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

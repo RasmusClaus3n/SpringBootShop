@@ -1,8 +1,8 @@
-package com.rasmusclausen.storeproject.controller;
+package com.rasmusclausen.shopproject.controller;
 
-import com.rasmusclausen.storeproject.entity.CartItem;
-import com.rasmusclausen.storeproject.entity.Product;
-import com.rasmusclausen.storeproject.service.ProductService;
+import com.rasmusclausen.shopproject.entity.CartItem;
+import com.rasmusclausen.shopproject.entity.Product;
+import com.rasmusclausen.shopproject.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
