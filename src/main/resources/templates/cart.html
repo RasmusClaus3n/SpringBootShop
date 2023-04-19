@@ -39,7 +39,7 @@
                                     <td class="desc">
                                         <!--Product Name-->
                                         <h3>
-                                            <a th:text="${cartItem.product.name}" href="#" class="text-navy"></a>
+                                            <a th:href="@{/shop/product/{productId}(productId=${cartItem.product.id})}" th:text="${cartItem.product.name}" class="text-navy"></a>
                                         </h3>
                                         <!--Product platform and category-->
                                         <dl class="small m-b-none text-muted">
@@ -67,8 +67,8 @@
                                             <input type="hidden" name="productId" th:value="${cartItem.product.id}" />
                                             <span style="display: flex;">
                                                 <input type="hidden" name="quantity" th:value="${cartItem.quantity}">
-                                                <button class="btn-outline-dark btn-sm" type="submit" name="decQuantity" value="true"><i class="fa fa-minus"></i></button>
-                                                <button class="btn-outline-dark btn-sm" type="submit" name="incQuantity" value="true"><i class="fa fa-plus"></i></button>
+                                                <button class="btn-outline-dark btn-sm" type="submit" name="decQuantity" value="true" style="border: none;"><i class="fa fa-minus"></i></button>
+                                                <button class="btn-outline-dark btn-sm" type="submit" name="incQuantity" value="true" style="border: none;"><i class="fa fa-plus"></i></button>
                                             </span>
                                         </form>
                                     </td>
@@ -125,7 +125,7 @@
                                 <!-- Product Image -->
                                 <img th:src="${product.imageUrl}" style="width: 40%; text-align: center;">
                             </div>
-                            <a th:href="@{/shop/product/{productId}(productId=${product.id})}"th:text="${product.name}" class="text-navy"> Product 1</a>
+                            <a th:href="@{/shop/product/{productId}(productId=${product.id})}"th:text="${product.name}" class="text-navy"></a>
                             <dl class="small m-b-none text-muted">
                                 <dd th:text="${product.platform} + ' / ' + ${product.category}"></dd>
                                 <span th:each="genre : ${product.genres}" th:text="${genre} + ' '"></span>
