@@ -13,16 +13,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Formatter;
 import java.util.List;
 
 @Controller
 @SessionAttributes({"cart", "totalSum", "cartSize"})
 @RequestMapping("web-order")
 public class WebOrderController {
-
-    // Used to format totalSum
-    private static final Formatter formatter = new Formatter();
 
     @Autowired
     WebOrderService webOrderService;
@@ -71,13 +67,16 @@ public class WebOrderController {
     @Transactional
     @GetMapping("all")
     public String getAllWebOrders(Model model){
-        model.addAttribute("activePage", "web-orders");
+        // Gets all web orders and sets models accordingly
         List <WebOrder> webOrders = webOrderService.getAllWebOrders();
+        model.addAttribute("activePage", "web-orders");
         model.addAttribute("webOrders", webOrders);
         return "web-orders";
     }
 
+
     public BigDecimal getTotalSum(List<CartItem> cart){
+        // Calculates total sum of cart and rounds down to two decimals
         BigDecimal totalSum = BigDecimal.ZERO;
         for (CartItem cartItem : cart) {
             BigDecimal itemPrice = cartItem.getProduct().getPrice();

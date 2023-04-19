@@ -21,9 +21,6 @@ public class CartController {
     @Autowired
     ProductService productService;
 
-    // Used to format totalSum
-    private static final Formatter formatter = new Formatter();
-
     @GetMapping("")
     public String showCart(Model model) {
 
@@ -103,7 +100,10 @@ public class CartController {
     public String addToCart(@RequestParam Long productId,
                             @RequestParam Integer quantity,
                             Model model) {
+        // Sets the product to be added
         Product product = productService.findProductById(productId);
+
+        // Gets cart from session
         List<CartItem> cart = (List<CartItem>) model.getAttribute("cart");
 
         if (product != null) {
@@ -132,7 +132,7 @@ public class CartController {
         BigDecimal totalSum = getTotalSum(cart);
         int cartSize = getCartSize(cart);
 
-        // Updates cartSize and totalSum in session
+        // Updates models in session
         model.addAttribute("cartSize", cartSize);
         model.addAttribute("totalSum", totalSum);
 
@@ -143,6 +143,7 @@ public class CartController {
     public String removeFromCart(@RequestParam Long productId, Model model) {
         List<CartItem> cart = (List<CartItem>) model.getAttribute("cart");
 
+        // Removes product from cart if the cart is not null
         if (cart != null) {
             cart.removeIf(item -> item.getProduct().getId().equals(productId));
         }
@@ -150,6 +151,7 @@ public class CartController {
         BigDecimal totalSum = getTotalSum(cart);
         int cartSize = getCartSize(cart);
 
+        // Updates models in session
         model.addAttribute("cart", cart);
         model.addAttribute("cartSize", cartSize);
         model.addAttribute("totalSum", totalSum);
@@ -166,6 +168,7 @@ public class CartController {
         // Gets cart from session
         List<CartItem> cart = (List<CartItem>) model.getAttribute("cart");
 
+        // Checks if user wants to increase quantity and limits the value to 10
             if (incQuantity != null && incQuantity && quantity < 10) {
                 {
                     for (CartItem cartItem : cart) {
@@ -176,6 +179,7 @@ public class CartController {
                 }
             }
 
+        // Checks if user wants to decrease quantity and limits the value to 1
             if (decQuantity != null && decQuantity && quantity > 1) {
                 for (CartItem cartItem : cart) {
                     if (cartItem.getProduct().getId().equals(product.getId())) {
@@ -184,10 +188,10 @@ public class CartController {
                 }
             }
 
-
         BigDecimal totalSum = getTotalSum(cart);
         int cartSize = getCartSize(cart);
 
+        // Updates models in session
         model.addAttribute("cart", cart);
         model.addAttribute("cartSize", cartSize);
         model.addAttribute("totalSum", totalSum);
@@ -195,9 +199,8 @@ public class CartController {
         return "redirect:/cart";
     }
 
-    // Helper methods
-
     public BigDecimal getTotalSum(List<CartItem> cart){
+        // Calculates total sum of cart and rounds down to two decimals
         BigDecimal totalSum = BigDecimal.ZERO;
         for (CartItem cartItem : cart) {
             BigDecimal itemPrice = cartItem.getProduct().getPrice();
@@ -208,6 +211,7 @@ public class CartController {
     }
 
     public int getCartSize(List<CartItem> cart){
+        // Gets size of cart
         int cartSize = 0;
         for (CartItem cartItem : cart) {
             cartSize += cartItem.getQuantity();
@@ -216,6 +220,7 @@ public class CartController {
     }
 
     private boolean isProductInCart(Product product, List<CartItem> cart) {
+        // Determines if a certain product is in cart
         for (CartItem item : cart) {
             if (item.getProduct().getId().equals(product.getId())) {
                 return true;

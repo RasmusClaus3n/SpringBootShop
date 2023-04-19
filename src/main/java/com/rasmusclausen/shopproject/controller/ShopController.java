@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Formatter;
 import java.util.List;
 
 @Controller
@@ -24,8 +23,8 @@ public class ShopController {
     @Autowired
     ProductService productService;
 
-    private static final Formatter formatter = new Formatter();
-    private static final int pageSize = 8; // Number of products to display per page
+    // Number of products to display per page
+    private static final int pageSize = 8;
 
     @GetMapping("")
     public String getAllProducts(@RequestParam(defaultValue = "0") int page,
@@ -40,7 +39,7 @@ public class ShopController {
 
         Pageable pageable;
 
-        // Sort products based on sortBy parameter
+        // Sort products based on price
         if ("lowest".equalsIgnoreCase(sortBy)) {
             pageable = PageRequest.of(page, pageSize, Sort.by("price").ascending());
         } else if ("highest".equalsIgnoreCase(sortBy)) {
@@ -49,6 +48,7 @@ public class ShopController {
             pageable = PageRequest.of(page, pageSize);
         }
 
+        // Sort products based on platform and name
         Page<Product> productsPage;
         if (platform != null && name != null) {
             productsPage = productService.findByPlatformAndName(platform, name, pageable);
@@ -60,6 +60,7 @@ public class ShopController {
             productsPage = productService.findAllProducts(pageable);
         }
 
+        // Sets the list of all products and sets total pages to display
         List<Product> allProducts = productsPage.getContent();
         int totalPages = productsPage.getTotalPages();
 
@@ -90,6 +91,7 @@ public class ShopController {
 
     @GetMapping("/product/{productId}")
     public String getProductById(@PathVariable Long productId, Model model) {
+        // Gets product by id
         Product product = productService.findProductById(productId);
         model.addAttribute("product", product);
         return "product";
