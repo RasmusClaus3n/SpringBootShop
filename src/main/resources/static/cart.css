@@ -104,12 +104,6 @@ table.shoping-cart-table tr td:last-child {
   text-align: center;
 }
 
-.product-interested-in-img{
-    width: 40%;
-    height: inherit !important;
-    object-fit: contain !important;
-}
-
 .btn-danger{
    border: none !important;
 }

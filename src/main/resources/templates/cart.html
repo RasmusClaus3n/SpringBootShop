@@ -42,13 +42,13 @@
                                             <a th:text="${cartItem.product.name}" href="#" class="text-navy"></a>
                                         </h3>
                                         <!--Product platform and category-->
-                                        <dl class="small m-b-none">
+                                        <dl class="small m-b-none text-muted">
                                             <dt>Description</dt>
                                             <dd th:text="${cartItem.product.platform} + ' / ' + ${cartItem.product.category}"></dd>
                                         </dl>
                                         <!--Remove from cart-->
                                         <div class="m-t-sm">
-                                            <form th:action="@{/cart/remove-from-cart}" method="post">
+                                            <form th:action="@{/cart/remove-from-cart}" method="POST">
                                                 <input type="hidden" name="productId" th:value="${cartItem.product.id}">
                                                 <button class="btn-danger btn-sm" type="submit"><i class="fa fa-trash"></i> Remove item</button>
                                             </form>
@@ -73,7 +73,6 @@
                     </div>
 
                     <!--Checkout/Continue Shopping-->
-
                     <div class="ibox-content">
                         <button th:classappend="${cartSize == 0 ? 'disabled' : ''}" class="btn btn-success pull-right" data-toggle="modal" data-target="#checkoutModal"><i class="fa fa fa-shopping-cart"></i> Checkout</button>
                         <a th:href="@{/shop}"><button class="btn btn-primary" ><i class="fa fa-arrow-left"></i> Continue shopping</button></a>
@@ -84,7 +83,6 @@
             </div>
 
             <!--Cart Summary-->
-
             <div class="col-md-3">
                 <div class="ibox">
                     <div class="ibox-title">
@@ -118,7 +116,7 @@
                                 <img th:src="${product.imageUrl}" style="width: 40%; text-align: center;">
                             </div>
                             <a th:href="@{/shop/product/{productId}(productId=${product.id})}"th:text="${product.name}" class="text-navy"> Product 1</a>
-                            <dl class="small m-b-none">
+                            <dl class="small m-b-none text-muted">
                                 <dd th:text="${product.platform} + ' / ' + ${product.category}"></dd>
                                 <span th:each="genre : ${product.genres}" th:text="${genre} + ' '"></span>
                             </dl>

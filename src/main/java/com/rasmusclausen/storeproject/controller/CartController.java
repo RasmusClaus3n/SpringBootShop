@@ -65,11 +65,13 @@ public class CartController {
                 genresInterest.addAll(product.getGenres());
             }
 
-            // Filters all products to include only those with platforms that match the platforms of the products in cart
+            // Filters all products to include only those with platforms that match the
+            // platforms of the products in cart
             List<Product> productsWithMatchingPlatforms = allProducts.stream()
                     .filter(product -> platformsInCart.contains(product.getPlatform())).toList();
 
-            // Filters the products with matching platforms to include only those that have at least one genre in common with the products in cart
+            // Filters the products with matching platforms to include only those that have
+            // at least one genre in common with the products in cart
             interestedInProducts = productsWithMatchingPlatforms.stream()
                     .filter(product -> {
                         for (String genre : product.getGenres()) {
@@ -98,7 +100,8 @@ public class CartController {
 
     @PostMapping("add-to-cart")
     public String addToCart(@RequestParam Long productId,
-                            @RequestParam Integer quantity, Model model) {
+                            @RequestParam Integer quantity,
+                            Model model) {
         Product product = productService.findProductById(productId);
         List<CartItem> cart = (List<CartItem>) model.getAttribute("cart");
 
@@ -142,6 +145,7 @@ public class CartController {
         if (cart != null) {
             cart.removeIf(item -> item.getProduct().getId().equals(productId));
         }
+
         double totalSum = getTotalSum(cart);
         int cartSize = getCartSize(cart);
 
@@ -149,6 +153,36 @@ public class CartController {
         model.addAttribute("cartSize", cartSize);
         model.addAttribute("totalSum", totalSum);
         return "redirect:/cart";
+    }
+
+    @PostMapping("changeQuantity")
+    public String changeQuantity(@RequestParam Long productId,
+                                 @RequestParam (required = false) boolean incQuantity,
+                                 @RequestParam (required = false) boolean decQuantity,
+                                 Model model){
+        Product product = productService.findProductById(productId);
+        // Gets cart from session
+        List<CartItem> cart = (List<CartItem>) model.getAttribute("cart");
+
+        if(incQuantity) {
+            for (CartItem cartItem : cart) {
+                if (cartItem.getProduct() == product) {
+                    cartItem.setQuantity(cartItem.getQuantity() + 1);
+                }
+            }
+        }
+
+        if(decQuantity) {
+            for (CartItem cartItem : cart) {
+                if (cartItem.getProduct() == product) {
+                    cartItem.setQuantity(cartItem.getQuantity() - 1);
+                }
+            }
+        }
+
+        model.addAttribute("cart", cart);
+
+       return "cart";
     }
 
     // Helper methods

@@ -172,14 +172,13 @@ VALUES (
 );
 
 INSERT INTO customer (first_name, last_name, address)
-VALUES ('John', 'Doe', '123 Main St');
+VALUES ('John', 'Doe', '123 Fake Street');
 
 INSERT INTO web_order (customer_id, total_sum, created)
 VALUES (1, 119.98, NOW());
 
 INSERT INTO cart_item (product_id, quantity, web_order_id)
 VALUES (1, 2, 1);
-
 
 --SET FOREIGN_KEY_CHECKS = 1;
 SET REFERENTIAL_INTEGRITY TRUE;
